@@ -3,7 +3,7 @@ import keras
 import pickle
 from PIL import Image
 import numpy as np
-
+import streamlit as st
 # Set page title and favicon
 st.set_page_config(page_title="Road Sign Classification", page_icon="🚦")
 
