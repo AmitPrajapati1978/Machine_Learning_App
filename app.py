@@ -1,8 +1,7 @@
-import streamlit as st
 import pandas as pd
 import keras
 import pickle
-import cv2
+from PIL import Image
 import numpy as np
 
 # Set page title and favicon
@@ -13,12 +12,13 @@ st.title("Road Sign Classification")
 st.image("/Users/amitprajapati/Documents/WPI_DOCS/Courses/ML/archive/Roadsignimages.png", use_column_width='always')
 
 # File uploader for image
-data = st.file_uploader("Upload image")
+data = st.file_uploader("Upload image", type=['png', 'jpg', 'jpeg'])
 
 # Function to classify image
 def classify_image(img):
-    img = cv2.resize(img, (100, 100))
-    img = img.reshape(1, 100, 100, 3) / 255
+    img = img.resize((100, 100))  # Resize image
+    img = np.array(img)  # Convert image to numpy array
+    img = img.reshape(1, 100, 100, 3) / 255  # Reshape and normalize
     reconstructed_model = keras.models.load_model("/Users/amitprajapati/Documents/WPI_DOCS/Courses/ML/archive/CNN_OVER_UNDER_SAMPLED_DATA.keras")
     Mapping = pd.read_csv('Transformation.csv')
     pred = np.argmax(reconstructed_model.predict(img), axis=1)
@@ -27,9 +27,7 @@ def classify_image(img):
 
 # Display image and prediction
 if data is not None:
-    file_bytes = np.asarray(bytearray(data.read()), dtype=np.uint8)
-    img = cv2.imdecode(file_bytes, 1)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = Image.open(data)  # Open image
     predicted_class = classify_image(img)
     
     # Display prediction
