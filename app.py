@@ -20,7 +20,7 @@ def classify_image(img):
     img = img.resize((100, 100))  # Resize image
     img = np.array(img)  # Convert image to numpy array
     img = img.reshape(1, 100, 100, 3) / 255  # Reshape and normalize
-    reconstructed_model = keras.models.load_model("CNN_OVER_UNDER_SAMPLED_DATA.keras")
+    reconstructed_model = keras.models.load_model("CNN_OVER_UNDER_SAMPLED_DATA.h5")
     Mapping = pd.read_csv('Transformation.csv')
     pred = np.argmax(reconstructed_model.predict(img), axis=1)
     predicted_class = Mapping.loc[Mapping['values'] == pred[0], 'keys'].iloc[0]
