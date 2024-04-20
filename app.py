@@ -26,7 +26,7 @@ h1 {
 
 # Add title and image header
 st.title("Road Sign Classification")
-st.image("/Users/amitprajapati/Documents/WPI_DOCS/Courses/ML/archive/Roadsignimages.png", use_column_width='always')
+st.image("Roadsignimages.png", use_column_width='always')
 
 # File uploader for image
 data = st.file_uploader("Upload image", type=['png', 'jpg', 'jpeg'])
@@ -36,7 +36,7 @@ def classify_image(img):
     img = img.resize((100, 100))  # Resize image
     img = np.array(img)  # Convert image to numpy array
     img = img.reshape(1, 100, 100, 3) / 255  # Reshape and normalize
-    reconstructed_model = keras.models.load_model("/Users/amitprajapati/Documents/WPI_DOCS/Courses/ML/archive/CNN_OVER_UNDER_SAMPLED_DATA.keras")
+    reconstructed_model = keras.models.load_model("CNN_OVER_UNDER_SAMPLED_DATA.keras")
     Mapping = pd.read_csv('Transformation.csv')
     pred = np.argmax(reconstructed_model.predict(img), axis=1)
     predicted_class = Mapping.loc[Mapping['values'] == pred[0], 'keys'].iloc[0]
