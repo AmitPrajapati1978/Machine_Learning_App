@@ -8,22 +8,6 @@ import numpy as np
 # Set page title and favicon
 st.set_page_config(page_title="Road Sign Classification", page_icon="🚦")
 
-# Custom styles
-st.markdown("""
-<style>
-.main { 
-    background-color: #f0f2f6;
-}
-h1 {
-    color: #333366;
-}
-.streamlit-expanderHeader {
-    font-size: 16px;
-    font-weight: bold;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # Add title and image header
 st.title("Road Sign Classification")
 st.image("Roadsignimages.png", use_column_width='always')
@@ -48,17 +32,7 @@ if data is not None:
     predicted_class = classify_image(img)
     
     # Display prediction
-    st.success(f'Predicted Class: {predicted_class}')
+    st.write(f'Predicted Class: {predicted_class}')
     
     # Display resized image
     st.image(img, caption='Uploaded Image', use_column_width=True)
-
-# Add some interactive components
-with st.expander("ℹ️ - About this app", expanded=True):
-    st.write("""
-    This application is designed to classify traffic signs in real time using a deep learning model. Simply upload an image of a traffic sign, and the system will predict its class.
-    """)
-
-# Footer
-st.markdown("---")
-st.markdown("🚀 App built with Streamlit | 🛠️ by [Your Name]")
